@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start:prod": "nuxt start --port 3002",
+    "start:local": "nuxt start",
     "generate": "nuxt generate",
     "test": "jest"
   },

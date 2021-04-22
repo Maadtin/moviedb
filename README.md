@@ -4,6 +4,10 @@
 
 An app that let us search for different kinds of movies and add them to our cart.
 
+## API used
+
+###[TheMovieDatabase](https://developers.themoviedb.org/3/getting-started/introduction)
+
 ## Build Setup
 
 ```bash
