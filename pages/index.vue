@@ -1,6 +1,6 @@
 <template>
     <CBox>
-      <CHeading mb="30px" color="white">Search movie by category</CHeading>
+      <CHeading mb="30px" color="white">Search movies by category</CHeading>
       <CList>
         <CListItem v-for="category in categories">
           <CLink fontSize="xl" color="white" @click="handleCategoryClick(category)">
