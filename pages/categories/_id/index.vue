@@ -1,7 +1,7 @@
 <template>
   <CBox>
     <CStack isInline justify="space-between">
-      <CButton leftIcon="chevron-left" as="nuxt-link" to="/" mb="20px" variantColor="vue">Go back to categories</CButton>
+      <CIconButton icon="chevron-left" as="nuxt-link" to="/" mb="20px" variantColor="vue" />
       <CInput
         v-model="search"
         w="fit-content"
@@ -28,7 +28,7 @@
 
 import getSeoProperties from "../../../utils/getSeoProperties";
 import Fuse from 'fuse.js'
-import {CBox, CSimpleGrid, CStack, CButton, CImage, CHeading, CText, CLink, CIcon, CInput, CInputGroup, CInputLeftElement} from '@chakra-ui/vue'
+import {CBox, CSimpleGrid, CStack, CButton, CIconButton, CImage, CHeading, CText, CLink, CIcon, CInput, CInputGroup, CInputLeftElement} from '@chakra-ui/vue'
 
 export default {
   name: "MoviesByCategory",
@@ -37,6 +37,7 @@ export default {
     CSimpleGrid,
     CStack,
     CButton,
+    CIconButton,
     CImage,
     CHeading,
     CText,
@@ -77,7 +78,7 @@ export default {
       .then(response => {
         if (response.results.length) {
           this.page += 1;
-          this.searchableMovies.push(...response.results)
+          this.searchableMovies.push(...response.results.filter(movie => movie.poster_path))
           $state.loaded();
         } else {
           $state.complete();

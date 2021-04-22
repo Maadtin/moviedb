@@ -2,6 +2,12 @@ import theme from "./utils/theme";
 import getSeoProperties from "./utils/getSeoProperties";
 
 export default {
+
+  server: {
+    port: 8000,
+    host: '0.0.0.0'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: 'MovieDB | %s',

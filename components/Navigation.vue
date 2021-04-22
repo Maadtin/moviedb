@@ -1,7 +1,7 @@
 <template>
   <CStack color="white" bg="#032541" isInline justify="space-between" py="20px" top="0" pos="sticky" zIndex="2">
     <CLink as="nuxt-link" to="/" fontSize="2xl" :_hover="{ textDecoration: 'none' }">MovieDB</CLink>
-    <CPopover v-slot="{ onClose }" trigger="click" placement="bottom-start">
+    <CPopover v-slot="{ onClose }" placement="bottom-start">
       <CPopoverTrigger>
         <CButton bg="#fedd5f" color="#714000" _hover="#714000">
           Cart
@@ -10,12 +10,13 @@
           </CBadge>
         </CButton>
       </CPopoverTrigger>
-      <CPopoverContent bg="#193d5b">
-        <CPopoverHeader>Movies</CPopoverHeader>
+      <CPopoverContent w="200px" bg="#193d5b">
+        <CPopoverArrow />
+        <CPopoverHeader>Added Movies</CPopoverHeader>
         <CPopoverBody>
           <CList spacing="10px" v-if="$store.state.cart.movies.length">
             <CListItem v-for="movie in $store.state.cart.movies">
-              <CStack isInline>
+              <CStack isInline align="flex-start">
                 <CImage w="50px" :src="movie.poster" />
                 <CBox>
                   <CText color="white">{{ movie.title }}</CText>
@@ -25,7 +26,7 @@
             </CListItem>
           </CList>
           <CText v-else color="white">
-            You haven't added movies to your cart.
+            You haven't added any movies to your cart.
           </CText>
         </CPopoverBody>
       </CPopoverContent>
