@@ -70,6 +70,7 @@ export default {
   },
   methods: {
     fetchMovies ($state) {
+        console.log({$state, status: 'fetching movies'})
         this.$moviesRepository.listByCategory({
           category: this.$route.params.id,
           page: this.page
