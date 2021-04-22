@@ -19,7 +19,7 @@
               <CStack isInline align="flex-start">
                 <CImage w="50px" :src="movie.poster" />
                 <CBox>
-                  <CText color="white">{{ movie.title }}</CText>
+                  <CLink d="block" as="nuxt-link" :to="`/movies/${movie.id}`" color="white">{{ movie.title }}</CLink>
                   <CIconButton @click="handleDeleteMovieFromCart(movie.id, onClose)" size="sm" variantColor="red" icon="close" />
                 </CBox>
               </CStack>

@@ -13,8 +13,9 @@
       <CBox color="white">
         <CHeading :mt="['10px', null, '0']" mb="10px">{{ movie.title }} ({{ movie.release_date | getDateYear }})</CHeading>
         <CHeading fontSize="xl" as="h3" mb="5px">
-          User score: {{  movie.vote_average }}
+          User score: {{ movie.vote_average }}
         </CHeading>
+        <CDivider borderColor="vue.50" />
         <CText>
         </CText>
         <CText>
@@ -33,13 +34,12 @@
     <CStack mt="20px" color="white">
       <CHeading as="h2">Series Cast</CHeading>
       <CSimpleGrid :columns="[2, 4 , 6]" :spacing="['5px', null, '10px']">
-        <CBox v-for="person in cast" pos="relative" border="1px" borderColor="rgba(255, 255, 255, 0.3)">
-          <CImage :src="`https://image.tmdb.org/t/p/w500/${person.profile_path}`" />
-          <CBox pos="absolute" textAlign="center" bottom="0" left="0" p="10px" w="full" boxShadow="inset 0px -25px 25px -5px #000">
-            <CText color="white">{{ person.original_name }}</CText>
-            <CText fontSize="13px" color="white">as: {{ person.character }}</CText>
-          </CBox>
-        </CBox>
+        <GridCard
+          v-for="person in cast"
+          :image="`https://image.tmdb.org/t/p/w500/${person.profile_path}`"
+          :title="person.original_name"
+          :subtitle="person.character"
+        />
       </CSimpleGrid>
     </CStack>
   </CBox>
@@ -47,11 +47,13 @@
 
 <script>
 
-import {CBox, CStack, CFlex, CButton, CIconButton, CImage, CSimpleGrid, CHeading, CBadge, CText, CLink} from '@chakra-ui/vue'
+import {CBox, CStack, CFlex, CButton, CIconButton, CImage, CSimpleGrid, CHeading, CBadge, CText, CLink, CDivider} from '@chakra-ui/vue'
+import GridCard from "../../../components/GridCard";
 
 export default {
   name: "MovieDetail",
   components: {
+    GridCard,
     CBox,
     CFlex,
     CButton,
@@ -62,7 +64,8 @@ export default {
     CHeading,
     CBadge,
     CText,
-    CLink
+    CLink,
+    CDivider
   },
   filters: {
     getDateYear (value) {
