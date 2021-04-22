@@ -21,7 +21,7 @@
         :to="`/movies/${movie.id}`"
       />
     </CSimpleGrid>
-    <infinite-loading direction="bottom" @infinite="fetchMovies"></infinite-loading>
+    <infinite-loading @infinite="fetchMovies"></infinite-loading>
   </CBox>
 </template>
 
