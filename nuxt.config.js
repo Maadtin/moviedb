@@ -1,13 +1,17 @@
-import theme from "./theme";
+import theme from "./utils/theme";
+import getSeoProperties from "./utils/getSeoProperties";
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'mytheresa-technical-task',
+    titleTemplate: 'MovieDB | %s',
+    ...getSeoProperties({
+      title: 'Search movies',
+      description: 'Search the most popular and recent movies.',
+    }),
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

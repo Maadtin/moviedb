@@ -31,6 +31,7 @@
 <script>
 
 import {CBox, CStack, CFlex, CButton, CImage, CSimpleGrid, CHeading, CBadge, CText, CLink} from '@chakra-ui/vue'
+import getSeoProperties from "../../../utils/getSeoProperties";
 
 export default {
   name: "MovieDetail",
@@ -59,6 +60,12 @@ export default {
     isAdded () {
       return this.$store.state.cart.movies.find(movie => movie.id === this.movie.id);
     }
+  },
+  head () {
+    return getSeoProperties({
+      title: this.movie.original_title,
+      description: this.movie.overview
+    })
   },
   async asyncData({$axios, params}) {
     const response = await $axios.$get(`/movie/${params.id}`, {

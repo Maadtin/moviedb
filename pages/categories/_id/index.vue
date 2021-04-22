@@ -14,7 +14,7 @@
     <CHeading v-if="genre" color="white" mb="20px">{{  genre.name  }} Movies</CHeading>
     <CSimpleGrid :columns="[2, 3 , 5]" :spacing="['5px', null, '10px']">
       <CLink v-for="movie in searchableMovies" pos="relative" d="block" border="1px" borderColor="rgba(255, 255, 255, 0.3)" as="nuxt-link" :to="`/movies/${movie.id}`">
-        <CImage :src="`https://image.tmdb.org/t/p/w200/${movie.poster_path}`" />
+        <CImage :src="`https://image.tmdb.org/t/p/w300/${movie.poster_path}`" />
         <CBox pos="absolute" bottom="0" left="0" p="10px" w="full" boxShadow="inset 0px -25px 25px -5px #000">
           <CText color="white" textAlign="center">{{ movie.original_title }}</CText>
         </CBox>
@@ -26,6 +26,7 @@
 
 <script>
 
+import getSeoProperties from "../../../utils/getSeoProperties";
 import Fuse from 'fuse.js'
 import {CBox, CSimpleGrid, CStack, CButton, CImage, CHeading, CText, CLink, CIcon, CInput, CInputGroup, CInputLeftElement} from '@chakra-ui/vue'
 
@@ -83,6 +84,12 @@ export default {
         }
       })
     }
+  },
+  head () {
+    return getSeoProperties({
+      title: `${this.genre.name} movies`,
+      description: `Search movies about the ${this.genre.name} genre.`
+    })
   },
   async asyncData({$axios, params}) {
     const categories = await $axios.$get('/genre/movie/list', {

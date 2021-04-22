@@ -1,5 +1,3 @@
-# mytheresa-technical-task
-
 ## MovieDB
 
 An app that let us search for different kinds of movies and add them to our cart.
