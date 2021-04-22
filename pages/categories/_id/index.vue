@@ -21,12 +21,15 @@
         :to="`/movies/${movie.id}`"
       />
     </CSimpleGrid>
-    <infinite-loading @infinite="fetchMovies"></infinite-loading>
+    <client-only>
+      <infinite-loading @infinite="fetchMovies"></infinite-loading>
+    </client-only>
   </CBox>
 </template>
 
 <script>
 
+import InfiniteLoading from 'vue-infinite-loading';
 import Fuse from 'fuse.js'
 import {CBox, CSimpleGrid, CStack, CButton, CIconButton, CImage, CHeading, CText, CLink, CIcon, CInput, CInputGroup, CInputLeftElement} from '@chakra-ui/vue'
 import GridCard from "../../../components/GridCard";
@@ -35,6 +38,7 @@ export default {
   name: "MoviesByCategory",
   components: {
     GridCard,
+    InfiniteLoading,
     CBox,
     CSimpleGrid,
     CStack,
@@ -47,7 +51,7 @@ export default {
     CIcon,
     CInput,
     CInputGroup,
-    CInputLeftElement
+    CInputLeftElement,
   },
   data () {
     return {

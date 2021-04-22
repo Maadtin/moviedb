@@ -32,7 +32,7 @@ export default {
   plugins: [
     { src: '~/plugins/api-repository.js' },
     { src: '~/plugins/get-seo-properties.js' },
-    { src: '~/plugins/vue-infinite-loading.js', mode: 'client' },
+    // { src: '~/plugins/vue-infinite-loading.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
