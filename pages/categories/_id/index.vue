@@ -21,7 +21,7 @@
         :to="`/movies/${movie.id}`"
       />
     </CSimpleGrid>
-    <infinite-loading @infinite="handleInfiniteScroll"></infinite-loading>
+    <infinite-loading @infinite="fetchMovies"></infinite-loading>
   </CBox>
 </template>
 
@@ -56,9 +56,6 @@ export default {
       page: 1
     }
   },
-  mounted () {
-    this.fetchMovies();
-  },
   computed: {
     searchableMovies () {
       if (this.search) {
@@ -72,22 +69,20 @@ export default {
     }
   },
   methods: {
-    fetchMovies () {
-      return this.$moviesRepository.listByCategory({
-        category: this.$route.params.id,
-        page: this.page
-      })
-    },
-    handleInfiniteScroll ($state) {
-        this.fetchMovies().then(response => {
-          if (response.results.length) {
-            this.page += 1;
-            this.searchableMovies.push(...response.results.filter(movie => movie.poster_path))
-            $state.loaded();
-          } else {
-            $state.complete();
-          }
+    fetchMovies ($state) {
+        this.$moviesRepository.listByCategory({
+          category: this.$route.params.id,
+          page: this.page
         })
+          .then(response => {
+            if (response.results.length) {
+              this.page += 1;
+              this.searchableMovies.push(...response.results.filter(movie => movie.poster_path))
+              $state && $state.loaded();
+            } else {
+              $state && $state.complete();
+            }
+          })
     }
   },
   head () {
