@@ -35,12 +35,9 @@ export default {
       })
     }
   },
-  async asyncData({$axios}) {
-    const categories = await $axios.$get('/genre/movie/list', {
-      params: {
-        api_key: '66b8dde58cb99f13da4cc65cc00e7229'
-      }
-    });
+  async asyncData({app}) {
+    console.log({app})
+    const categories = await app.$categoriesRepository.list();
     return {
       categories: categories.genres
     }

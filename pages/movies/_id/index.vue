@@ -48,7 +48,6 @@
 <script>
 
 import {CBox, CStack, CFlex, CButton, CIconButton, CImage, CSimpleGrid, CHeading, CBadge, CText, CLink} from '@chakra-ui/vue'
-import getSeoProperties from "../../../utils/getSeoProperties";
 
 export default {
   name: "MovieDetail",
@@ -86,23 +85,14 @@ export default {
     }
   },
   head () {
-    return getSeoProperties({
+    return this.$getSeoProperties({
       title: this.movie.original_title,
       description: this.movie.overview
     })
   },
-  async asyncData({$axios, params}) {
-    const movieRequest = await $axios.$get(`/movie/${params.id}`, {
-      params: {
-        api_key: '66b8dde58cb99f13da4cc65cc00e7229',
-      }
-    });
-
-    const creditsRequest = await $axios.$get(`/movie/${params.id}/credits`, {
-      params: {
-        api_key: '66b8dde58cb99f13da4cc65cc00e7229',
-      }
-    });
+  async asyncData({app, params}) {
+    const movieRequest = await app.$moviesRepository.find(params.id);
+    const creditsRequest = await app.$moviesRepository.getCast(params.id);
 
     return {
       movie: movieRequest,

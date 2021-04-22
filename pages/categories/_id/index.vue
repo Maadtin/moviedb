@@ -26,7 +26,6 @@
 
 <script>
 
-import getSeoProperties from "../../../utils/getSeoProperties";
 import Fuse from 'fuse.js'
 import {CBox, CSimpleGrid, CStack, CButton, CIconButton, CImage, CHeading, CText, CLink, CIcon, CInput, CInputGroup, CInputLeftElement} from '@chakra-ui/vue'
 
@@ -68,36 +67,29 @@ export default {
   },
   methods: {
     fetchMovies ($state) {
-      this.$axios.$get('/discover/movie', {
-        params: {
-          api_key: '66b8dde58cb99f13da4cc65cc00e7229',
-          with_genres: this.$route.params.id,
-          page: this.page,
-        }
+      this.$moviesRepository.listByCategory({
+        category: this.$route.params.id,
+        page: this.page
       })
-      .then(response => {
-        if (response.results.length) {
-          this.page += 1;
-          this.searchableMovies.push(...response.results.filter(movie => movie.poster_path))
-          $state.loaded();
-        } else {
-          $state.complete();
-        }
-      })
+        .then(response => {
+          if (response.results.length) {
+            this.page += 1;
+            this.searchableMovies.push(...response.results.filter(movie => movie.poster_path))
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
+        })
     }
   },
   head () {
-    return getSeoProperties({
+    return this.$getSeoProperties({
       title: `${this.genre.name} movies`,
       description: `Search movies about the ${this.genre.name} genre.`
     })
   },
-  async asyncData({$axios, params}) {
-    const categories = await $axios.$get('/genre/movie/list', {
-      params: {
-        api_key: '66b8dde58cb99f13da4cc65cc00e7229'
-      }
-    });
+  async asyncData({app, params}) {
+    const categories = await app.$categoriesRepository.list();
     return {
       genre: categories.genres.find(genre => genre.id == params.id)
     }
